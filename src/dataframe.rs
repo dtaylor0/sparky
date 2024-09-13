@@ -2,7 +2,7 @@ use std::error::Error;
 use std::io::{BufRead, BufReader};
 use std::{fmt, fs};
 
-const DISPLAY_COLUMN_WIDTH: usize = 20;
+const DISPLAY_COLWIDTH: usize = 20;
 
 #[allow(dead_code)]
 #[derive(Debug, Clone)]
@@ -62,14 +62,14 @@ impl ToString for CellType {
 
 impl ToString for Row {
     fn to_string(&self) -> String {
-        let width = DISPLAY_COLUMN_WIDTH;
+        let width = DISPLAY_COLWIDTH;
         self.cells
             .iter()
             .map(|c| match c {
                 CellType::Text(s) => {
-                    if s.len() > DISPLAY_COLUMN_WIDTH {
+                    if s.len() > DISPLAY_COLWIDTH {
                         let mut s = s.clone();
-                        s.truncate(DISPLAY_COLUMN_WIDTH - 3);
+                        s.truncate(DISPLAY_COLWIDTH - 3);
                         s.push_str("...");
                         return s;
                     } else {
@@ -179,7 +179,7 @@ impl fmt::Display for DataFrame {
                 format!(
                     "{: <width$}",
                     format!("{} [{}]", c.name.to_string(), c.data_type.to_string()),
-                    width = DISPLAY_COLUMN_WIDTH
+                    width = DISPLAY_COLWIDTH
                 )
             })
             .collect::<Vec<String>>()
